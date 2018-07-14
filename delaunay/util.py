@@ -96,7 +96,7 @@ class Points:
         return self.get_point(0)
 
     def __iter__(self):
-        return self
+        return iter(self)
 
     def next(self):
         if self._i >= len(self._points):
@@ -238,6 +238,10 @@ class Triangle(DagNode):
 # ###############################################################
 
 def is_pt_inside_triangle(p, t):
+    if t.b == None and t.c == None:
+        # This is the first triangle that contains all points
+        return True
+    
     a = area_of_triangle(t.a, t.b, t.c)
     a1  = area_of_triangle(t.a, t.b, p)
     a1 += area_of_triangle(t.b, t.c, p)
