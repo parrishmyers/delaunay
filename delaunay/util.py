@@ -73,20 +73,34 @@ class Points:
         self._points = []
         self._i = 0
 
-    def add_point(self, x, y):
-        n = Vertex(x, y)
+    def __add_point_from_vertex(self, n):
         if self._points:
             h = self._points[0]
-            if n.x < h.x and n.y >= h.y:
+            if n.y > h.y or (n.y == h.y and n.x < h.x):
                 self._points[0] = n
                 n = h
         self._points.append(n)
+    
+    def length(self):
+        return len(self._points)
+
+    def add_point(self, *args):
+        if isinstance(args[0], Vertex):
+            self.__add_point_from_vertex(args[0])
+        elif isinstance(args[0], float) and isinstance(args[1], float):
+            n = Vertex(args[0], args[1])
+            self.__add_point_from_vertex(n)
+        else:
+            raise ValueError()
 
     def get_point(self, i):
         if self._order:
             return self._points[self._order[i]]
         else:
             return self._points[i]
+    
+    def __getitem__(self, key):
+        return self.get_point(key)
 
     def permute(self):
         p = numpy.random.permutation(len(self._points))

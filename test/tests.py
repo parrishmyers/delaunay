@@ -220,5 +220,65 @@ class TestDTTriAdj(unittest.TestCase):
         t2 = Triangle(self.p4, self.p3, self.p2)
         self.assertTrue( t1.is_adjacent(t2) )
 
+class TestPoints(unittest.TestCase):
+    def setUp(self):
+        self.p = []
+        self.p.append(Vertex(-3.0, -3.0))
+        self.p.append(Vertex( 1.0, -2.0))
+        self.p.append(Vertex(-1.0, -0.5))
+        self.p.append(Vertex( 1.0,  0.5))
+        self.p.append(Vertex(-2.0,  1.5))
+
+    def tearDown(self):
+        pass
+    
+    def test_add_vertex(self):
+        pts = Points()
+        p = Vertex(1.0,1.0)
+        pts.add_point(p)
+        self.assertTrue(p == pts[0])
+    
+    def test_add_xy(self):
+        x = -1.1
+        y =  3.2
+        p = Vertex(x, y)
+        pts = Points()
+        pts.add_point(x, y)
+        self.assertTrue(p == pts[0])
+
+    def test_highest(self):
+        pts = Points()
+        for p in self.p:
+            pts.add_point(p)
+            self.assertTrue(pts.highest() == p)
+    
+    def test_permute(self):
+        pts = Points()
+        for p in self.p:
+            pts.add_point(p)
+        pts.permute()
+        self.assertTrue(pts.highest() == self.p[-1])
+        self.assertTrue(pts[0] == self.p[-1])
+
+class TestDAG(unittest.TestCase):
+    def setUp(self):
+        self.pts = Points()
+        self.pts.add_point(-2.5,  1.0)
+        self.pts.add_point( 0.0,  4.0)
+        self.pts.add_point( 2.0,  3.0)
+        self.pts.add_point( 3.0,  0.0)
+        self.pts.add_point( 2.8, -2.0)
+        self.pts.permute()
+
+    def tearDown(self):
+        pass
+    
+    def test_01(self):
+        p = Vertex(0.0, 4.0)
+        self.assertTrue(p == self.pts.highest())
+    
+    def test_02(self):
+        dag = DAG(self.pts)
+
 if __name__ == '__main__':
     unittest.main()

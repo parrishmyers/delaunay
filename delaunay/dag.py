@@ -1,11 +1,10 @@
 from delaunay.util import *
 
 class DAG:
-    _DAG = []
-
     def __init__(self, points):
         p0 = points.highest()
-        self._DAG[0] = Triangle(p0, None, None)
+        t1 = Triangle(p0, None, None)
+        self._DAG = [t1]
     
     def __match_b_in_a(self, a, b):
         av = [-1, -1, -1]
@@ -52,7 +51,7 @@ class DAG:
 
     def find_triangle_containing(self, p):
         root = self._DAG[0]
-        return self.__breadth_first_search(pr, root)
+        return self.__breadth_first_search(p, root)
         
     def split(self, t1, p):
         pass

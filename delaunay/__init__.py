@@ -2,10 +2,11 @@ from delaunay.util import *
 from delaunay.dag import *
 
 __all__ = [
-    'Vertex', 
-    'Triangle', 
-    'DAG', 
+    'area_of_triangle',
     'AREA_THRESHOLD',
-    'THRESHOLD',
+    'DAG', 
     'fequal',
-    'area_of_triangle']
+    'Points',
+    'THRESHOLD',
+    'Triangle', 
+    'Vertex']
