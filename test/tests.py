@@ -2,7 +2,7 @@ import numpy
 import numpy.random
 import unittest
 
-from dl_util import *
+from delaunay import *
 
 class TestDTMethods(unittest.TestCase):
     def test_feq(self):
@@ -85,7 +85,7 @@ class TestAreaError(unittest.TestCase):
 
         dCy = area_of_triangle(a6, b6, c6) - area
 
-        da = math.sqrt( dAx ** 2 
+        da = numpy.sqrt( dAx ** 2 
                     + dBx ** 2
                     + dCx ** 2
                     + dAy ** 2

@@ -1,3 +1,4 @@
+import numpy
 
 # ###############################################################
 #
@@ -24,11 +25,13 @@ def area_equal(a1, a2, threshold=AREA_THRESHOLD):
 # ###############################################################
 
 class Vertex:
-    _vertex = [0.0, 0.0]
-
-    def __init__(self, x: float, y: float):
+    def __init__(self, x, y):
+        self._vertex = [0.0, 0.0]
         self._vertex[0] = x
         self._vertex[1] = y
+    
+    def __str__(self):
+        return '[{}, {}]'.format(self._vertex[0], self._vertex[1])
     
     @property
     def x(self):
@@ -54,7 +57,7 @@ class Vertex:
             result = False
         return result
     
-    def is_higher_than(self, q: Vertex):
+    def is_higher_than(self, q):
         if self.x < q.x and self.y >= q.y:
             return True
         else:
@@ -112,7 +115,8 @@ class Points:
 # ###############################################################
 
 class DagNode:
-    _children = None
+    def __init__(self):
+        self._children = None
 
     def if_leaf(self):
         if self._children is None:
@@ -124,7 +128,7 @@ class DagNode:
     def children(self):
         return self._children
 
-    def add_child(self, value: DagNode):
+    def add_child(self, value):
         if not issubclass(value, DagNode):
             raise ValueError()
             
@@ -139,11 +143,11 @@ class DagNode:
 # ###############################################################
 
 def area_of_triangle(a,b,c):
-    a = ( a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) )/ 2.0
-    if a < 0.0:
-        return -a
+    area = ( a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) )/ 2.0
+    if area < 0.0:
+        return -area
     else:
-        return a
+        return area
 
 def are_triangles_adjacent(t1,t2):
     result = False
@@ -302,7 +306,7 @@ def circle_for_points(a, b, c):
     h = bx2 + by2 - 2 * k * Y2
     h /= 2 * X2
     
-    r = math.sqrt( (x1 - h)*(x1 - h) + (y1 - k)*(y1 - k) )
+    r = numpy.sqrt( (x1 - h)*(x1 - h) + (y1 - k)*(y1 - k) )
     
     return h, k, r
 
@@ -311,7 +315,7 @@ def in_circle(t, pr):
     x, y, r = circle_for_points(t.points[0], t.points[1], t.points[2])
     x_diff = pr.x - x
     y_diff = pr.y - y
-    dist = math.sqrt(x_diff**2 + y_diff**2)
+    dist = numpy.sqrt(x_diff**2 + y_diff**2)
     if dist <= r:
         return True
     else:
