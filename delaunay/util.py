@@ -67,7 +67,7 @@ class Vertex:
 #
 # ###############################################################
 
-class Points:
+class Points(object):
     def __init__(self):
         self._order = []
         self._points = []
@@ -113,9 +113,10 @@ class Points:
         return self.get_point(0)
 
     def __iter__(self):
-        return iter(self)
+        self._i = 0
+        return self
 
-    def next(self):
+    def __next__(self):
         if self._i >= len(self._points):
             raise StopIteration()
         
@@ -132,7 +133,7 @@ class DagNode:
     def __init__(self):
         self._children = None
 
-    def if_leaf(self):
+    def is_leaf(self):
         if self._children is None:
             return True
         else:
@@ -220,6 +221,7 @@ def are_triangles_adjacent(t1,t2):
 
 class Triangle(DagNode):
     def __init__(self, a, b, c):
+        DagNode.__init__(self)
         self._points = [a, b, c]
     
     @property

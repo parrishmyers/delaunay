@@ -279,6 +279,9 @@ class TestDAG(unittest.TestCase):
     
     def test_02(self):
         dag = DAG(self.pts)
-
+        for p in self.pts:
+            t = dag.find_triangle_containing(p)
+            self.assertTrue(t != None)
+    
 if __name__ == '__main__':
     unittest.main()

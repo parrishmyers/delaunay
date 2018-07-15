@@ -29,7 +29,7 @@ class DAG:
             
         return c, p1, p2
     
-    def __breadth_first_search(self, pt: Vertex, t: Triangle):
+    def __breadth_first_search(self, pt, t):
         if t == None:
             return None
 
