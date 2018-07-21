@@ -52,9 +52,28 @@ class DAG:
     def find_triangle_containing(self, p):
         root = self._DAG[0]
         return self.__breadth_first_search(p, root)
+    
+    def __split_on_edge(self, t1, p):
+        pass
+
+    def __split_on_interior(self, t1, p):
+        t2 = Triangle(t1.a, t1.b, p)
+        t3 = Triangle(t1.b, t1.c, p)
+        t4 = Triangle(t1.c, t1.a, p)
+
+        t1.add_child(t2)
+        t1.add_child(t3)
+        t1.add_child(t4)
+
+        self._DAG.append(t2)
+        self._DAG.append(t3)
+        self._DAG.append(t4)
         
     def split(self, t1, p):
-        pass
+        if is_pt_on_edge(p, t1):
+            self.__split_on_edge(t1, p)
+        else:
+            self.__split_on_interior(t1, p)
     
     def flip(self, t1, t2):
         c, p1, p2 = self.__match_b_in_a(t1, t2)

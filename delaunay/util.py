@@ -242,14 +242,7 @@ class Triangle(DagNode):
             return 0.0
         else:
             return a
-    
-    def area_zero(self):
-        a = area_of_triangle(self.a, self.b, self.c)
-        if area_equal(a, 0.0):
-            return True
-        else:
-            return False
-    
+        
     def is_adjacent(self, b):
         return are_triangles_adjacent(self, b)
 
@@ -257,16 +250,40 @@ class Triangle(DagNode):
 #
 # ###############################################################
 
+def is_triangle_area_zero(a, b, c):
+    a = area_of_triangle(a, b, c)
+    if area_equal(a, 0.0):
+        return True
+    else:
+        return False
+
+def is_pt_on_edge(p, t):
+    on_edge = False
+    
+    a1 = area_of_triangle(t.a, t.b, p)
+    if area_equal(a1, 0.0):
+        on_edge = True
+    a2 = area_of_triangle(t.b, t.c, p)
+    if area_equal(a2, 0.0):
+        on_edge = True
+    a3 = area_of_triangle(t.c, t.a, p)
+    if area_equal(a3, 0.0):
+        on_edge = True
+
+    return on_edge
+
 def is_pt_inside_triangle(p, t):
     if t.b == None and t.c == None:
         # This is the first triangle that contains all points
         return True
-    
+    a1 = area_of_triangle(t.a, t.b, p)
+    a2 = area_of_triangle(t.b, t.c, p)
+    a3 = area_of_triangle(t.c, t.a, p)
+
     a = area_of_triangle(t.a, t.b, t.c)
-    a1  = area_of_triangle(t.a, t.b, p)
-    a1 += area_of_triangle(t.b, t.c, p)
-    a1 += area_of_triangle(t.c, t.a, p)
-    return fequal(a, a1)
+    inside = fequal(a, a1+a2+a3)
+    
+    return inside
 
 def is_pt_inside_triangle2(p, t):
     x = p.x
