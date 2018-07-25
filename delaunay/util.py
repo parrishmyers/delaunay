@@ -157,6 +157,37 @@ class DagNode:
 #
 # ###############################################################
 
+def are_pts_ccw(a, b, c):
+    det  = (b.x - a.x) * (c.y - a.y) \
+            - (c.x - a.x) * (b.y - a.y)
+    if det > 0.0:
+        return True
+    else:
+        return False
+
+def is_higher(a, b):
+    if a.y > b.y or (a.y == b.y and a.x < b.x):
+        return True
+    else:
+        return False
+
+def order_pt(a, b, c):
+    
+    if is_heigher(a, b):
+        if is_heigher(a, c):
+
+        else:
+    else:
+        if is_heigher(c, b):
+        else:
+    
+    if are_pts_ccw(a, b, c)
+    for n in [b, c]:
+        
+            highest = n
+    return highest
+
+
 def area_of_triangle(a,b,c):
     area = ( a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) )/ 2.0
     if area < 0.0:
@@ -222,7 +253,7 @@ def are_triangles_adjacent(t1,t2):
 class Triangle(DagNode):
     def __init__(self, a, b, c):
         DagNode.__init__(self)
-        self._points = [a, b, c]
+        self._points = order_pts(a, b, c)
     
     @property
     def a(self):
