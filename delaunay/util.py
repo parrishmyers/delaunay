@@ -157,7 +157,10 @@ class DagNode:
 #
 # ###############################################################
 
-def are_pts_ccw(a, b, c):
+def are_pts_ccw(pts):
+    a = pts[0]
+    b = pts[1]
+    c = pts[2]
     det  = (b.x - a.x) * (c.y - a.y) \
             - (c.x - a.x) * (b.y - a.y)
     if det > 0.0:
@@ -172,21 +175,22 @@ def is_higher(a, b):
         return False
 
 def order_pt(a, b, c):
-    
-    if is_heigher(a, b):
-        if is_heigher(a, c):
-
+    pts = []
+    if is_higher(a, b):
+        if is_higher(a, c):
+            pts = [a, b, c]
         else:
+            pts = [c, a, b]
     else:
-        if is_heigher(c, b):
+        if is_higher(b, c):
+            pts = [b, c, a]
         else:
+            pts = [c, a, b]
     
-    if are_pts_ccw(a, b, c)
-    for n in [b, c]:
-        
-            highest = n
-    return highest
-
+    if are_pts_ccw(pts):
+        return pts
+    else:
+        return [pts[0], pts[2], pts[1]]
 
 def area_of_triangle(a,b,c):
     area = ( a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) )/ 2.0
