@@ -199,6 +199,76 @@ def area_of_triangle(a,b,c):
     else:
         return area
 
+def adjacent_triangle_edges(t1,t2):
+    adj_edges = None
+    uni_edges = None
+    
+    if   t1.a == t2.a and t1.b == t2.b:
+        adj_edges = (t1.a, t1.b, t2.a, t2.b)
+        uni_edges = (t1.c, t2.c)
+    elif t1.a == t2.a and t1.b == t2.c:
+        adj_edges = (t1.a, t1.b, t2.a, t2.c)
+        uni_edges = (t1.c, t2.b)
+    elif t1.a == t2.a and t1.c == t2.b:
+        adj_edges = (t1.a, t1.c, t2.a, t2.b)
+        uni_edges = (t1.b, t2.b)
+    elif t1.a == t2.a and t1.c == t2.c:
+        adj_edges = (t1.a, t1.c, t2.a, t2.c)
+        uni_edges = (t1.b, t2.b)
+    
+    elif t1.a == t2.b and t1.b == t2.a:
+        adj_edges = (t1.a, t1.b, t2.b, t2.a)
+        uni_edges = (t1.c, t2.c)
+    elif t1.a == t2.b and t1.b == t2.c:
+        adj_edges = (t1.a, t1.b, t2.b, t2.c)
+        uni_edges = (t1.c, t2.a)
+    elif t1.a == t2.b and t1.c == t2.a:
+        adj_edges = (t1.a, t1.c, t2.b, t2.a)
+        uni_edges = (t1.b, t2.c)
+    elif t1.a == t2.b and t1.c == t2.c:
+        adj_edges = (t1.a, t1.c, t2.b, t2.c)
+        uni_edges = (t1.b, t2.a)
+    
+    elif t1.a == t2.c and t1.b == t2.a:
+        adj_edges = (t1.a, t1.b, t2.c, t2.a)
+        uni_edges = (t1.c, t2.b)
+    elif t1.a == t2.c and t1.b == t2.b:
+        adj_edges = (t1.a, t1.b, t2.c, t2.b)
+        uni_edges = (t1.c, t2.a)
+    elif t1.a == t2.c and t1.c == t2.a:
+        adj_edges = (t1.a, t1.c, t2.c, t2.a)
+        uni_edges = (t1.b, t2.b)
+    elif t1.a == t2.c and t1.c == t2.b:
+        adj_edges = (t1.a, t1.c, t2.c, t2.b)
+        uni_edges = (t1.b, t2.a)
+    
+    elif t1.b == t2.a and t1.c == t2.b:
+        adj_edges = (t1.b, t1.c, t2.a, t2.b)
+        uni_edges = (t1.a, t2.c)
+    elif t1.b == t2.a and t1.c == t2.c:
+        adj_edges = (t1.b, t1.c, t2.a, t2.c)
+        uni_edges = (t1.a, t2.b)
+
+    elif t1.b == t2.b and t1.c == t2.a:
+        adj_edges = (t1.b, t1.c, t2.b, t2.a)
+        uni_edges = (t1.a, t2.c)
+    elif t1.b == t2.b and t1.c == t2.c:
+        adj_edges = (t1.b, t1.c, t2.b, t2.c)
+        uni_edges = (t1.a, t2.a)
+
+    elif t1.b == t2.c and t1.c == t2.a:
+        adj_edges = (t1.b, t1.c, t2.c, t2.a)
+        uni_edges = (t1.a, t2.b)
+    elif t1.b == t2.c and t1.c == t2.b:
+        adj_edges = (t1.b, t1.c, t2.c, t2.b)
+        uni_edges = (t1.a, t2.a)
+    
+    else:
+        adj_edges = None
+        uni_edges = None
+
+    return (adj_edges, uni_edges)
+
 def are_triangles_adjacent(t1,t2):
     result = False
     

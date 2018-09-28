@@ -53,8 +53,32 @@ class DAG:
         root = self._DAG[0]
         return self.__breadth_first_search(p, root)
     
-    def __split_on_edge(self, t1, p):
-        pass
+    def __split_on_edge(self, t1, t2, p):
+        (c, u) = adjacent_triangle_edges(t1, t2)
+        assert(c != None)
+        a1 = u[0]
+        a2 = u[1]
+        b1 = c[0]
+        c1 = c[1]
+        b2 = c[2]
+        c2 = c[3]
+        assert(b1 == b2)
+        assert(c1 == c2)
+
+        t3 = Triangle(a1, p, b1)
+        t4 = Triangle(a1, p, c1)
+        t5 = Triangle(p, b2, a2)
+        t6 = Triangle(p, c2, a2)
+
+        t1.add_child(t3)
+        t1.add_child(t4)
+        t2.add_child(t5)
+        t2.add_child(t6)
+
+        self._DAG.append(t3)
+        self._DAG.append(t4)
+        self._DAG.append(t5)
+        self._DAG.append(t6)
 
     def __split_on_interior(self, t1, p):
         t2 = Triangle(t1.a, t1.b, p)
